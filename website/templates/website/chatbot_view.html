@@ -1,0 +1,48 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">{{ chatbot.name }}</h5>
+                <a href="{% url 'student_dashboard' %}" class="btn btn-sm btn-light">Voltar</a>
+            </div>
+            <div class="card-body" style="height: 400px; overflow-y: auto; background-color: #f1f1f1;" id="chat-box">
+                {% for message in messages_list %}
+                    {% if message.sender_type == 'USER' %}
+                        <div class="text-end mb-3">
+                            <div class="d-inline-block p-2 bg-primary text-white rounded">
+                                {{ message.content }}
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="text-start mb-3">
+                            <div class="d-inline-block p-2 bg-light text-dark rounded border">
+                                {{ message.content }}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% empty %}
+                    <p class="text-muted text-center mt-5">Inicie a conversa!</p>
+                {% endfor %}
+            </div>
+            <div class="card-footer">
+                <form method="post" class="d-flex">
+                    {% csrf_token %}
+                    <input type="text" name="content" class="form-control me-2" placeholder="Digite sua pergunta..." required autocomplete="off">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Scroll chat to bottom on load
+    $(document).ready(function() {
+        var chatBox = $('#chat-box');
+        chatBox.scrollTop(chatBox[0].scrollHeight);
+    });
+</script>
+{% endblock %}

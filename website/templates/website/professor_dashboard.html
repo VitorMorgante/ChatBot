@@ -1,0 +1,26 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2>Painel do Professor</h2>
+        <hr>
+        <div class="d-flex gap-3 mb-4">
+            <a href="{% url 'upload_material' %}" class="btn btn-primary">Upload de Material</a>
+            <a href="{% url 'create_chatbot' %}" class="btn btn-primary">Criar ChatBot</a>
+        </div>
+        
+        <h4>Seus ChatBots</h4>
+        <ul class="list-group">
+            {% for chatbot in user.professor_profile.chatbots.all %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ chatbot.name }}
+                    <a href="{% url 'associate_materials' chatbot.id %}" class="btn btn-sm btn-info text-white">Associar Materiais</a>
+                </li>
+            {% empty %}
+                <li class="list-group-item">Nenhum ChatBot criado.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

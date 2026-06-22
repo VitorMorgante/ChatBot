@@ -1,0 +1,17 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2>Painel do Administrador</h2>
+        <hr>
+        <div class="d-flex gap-3 flex-wrap">
+            <a href="{% url 'create_professor' %}" class="btn btn-primary">Cadastrar Professor</a>
+            <a href="{% url 'create_student' %}" class="btn btn-primary">Cadastrar Aluno</a>
+            <a href="{% url 'create_course' %}" class="btn btn-primary">Cadastrar Curso</a>
+            <a href="{% url 'enroll_professor' %}" class="btn btn-success">Vincular Professor a Curso</a>
+            <a href="{% url 'enroll_student' %}" class="btn btn-success">Matricular Aluno em Curso</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
